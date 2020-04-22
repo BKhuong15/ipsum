@@ -1,0 +1,46 @@
+@import "_constants.scss";
+
+form
+{
+  body > &
+  {
+    margin-left: 20px;
+  }
+}
+
+.field_group
+{
+  float: left;
+  width: 250px;
+  //margin-left: 20px;
+}
+
+.field
+{
+  float: left;
+  clear: left;
+  margin-top: 10px;
+
+  label,
+  input,
+  select,
+  textarea
+  {
+    float: left;
+  }
+
+  input,
+  select,
+  textarea
+  {
+    clear: left;
+  }
+}
+
+.field.markup
+{
+  .markup-value
+  {
+    clear: left;
+  }
+}

@@ -1,32 +1,4 @@
-<?php include 'header.php';
-
-echo '<h1>PT Stuff</h1>';
-echo '<div class="group">';
-echo '<h3>Common Diagnosis for PT</h3>';
-
-$diagnosis = getDiagnosisList();
-$count = 0;
-foreach($diagnosis as $code => $description)
-{
-  echo $code . ': ' . $description . '<br>';
-  $count++;
-
-  if ($count % 10 === 0)
-  {
-    echo '<br>';
-  }
-}
-echo '</div>';
-
-echo '<div class="group">';
-echo '<h3>Common Procedures for PT</h3>';
-
-$procedures = getProcedureList();
-foreach($procedures as $code => $description)
-{
-  echo $code . ': ' . $description . '<br>';
-}
-echo '</div>';
+<?php
 
 function getDiagnosisList()
 {

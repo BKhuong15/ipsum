@@ -1,14 +1,10 @@
-<?php include 'header.php';
-
-echo '<h1>Ipsum Addresses</h1>';
-for ($k = 0; $k < 10; $k++)
+<?php
+function buildAddress()
 {
-  echo buildStreetName();
-  echo  '<br>';
+  $output = buildStreetName() . htmlSolo('br');
   $zip = getZip();
-  echo $zip['city'] . ', ' . $zip['state_id'] . ' ' . $zip['zip'];
-  echo  '<br>';
-  echo  '<br>';
+  $output .= $zip['city'] . ', ' . $zip['state_id'] . ' ' . $zip['zip'];
+  return $output;
 }
 
 function getStreetNumber()
@@ -48,8 +44,10 @@ function getStreetPrefixList($key = FALSE)
 
 function getStreetNameList($key = FALSE)
 {
+  $street_names = array();
+
   // Trees.
-  $trees = array(
+  $street_names += array(
     'Acacia',
     'Alba',
     'Alder',
@@ -104,7 +102,7 @@ function getStreetNameList($key = FALSE)
   );
 
   // Numbers
-  $numbers = array(
+  $street_names += array(
     'First',
     '1st',
     'Second',
@@ -116,7 +114,7 @@ function getStreetNameList($key = FALSE)
   );
 
   // Presidents.
-  $presidents = array(
+  $street_names += array(
     'Washington',
     'Adams',
     'Jefferson',
@@ -138,7 +136,7 @@ function getStreetNameList($key = FALSE)
   );
 
   // Birds.
-  $birds = array(
+  $street_names += array(
     'Cardinal',
     'Jay',
     'Dove',
@@ -157,7 +155,7 @@ function getStreetNameList($key = FALSE)
   );
 
   // Geographical features.
-  $geo = array(
+  $street_names += array(
     'Ocean',
     'Cove',
     'River',
@@ -176,10 +174,12 @@ function getStreetNameList($key = FALSE)
     'Garden',
     'Bayou',
     'Lake',
+    'Ridge',
+    'Forest',
   );
 
   // Other common names.
-  $common = array(
+  $street_names += array(
     'Main',
     'Park',
     'View',
@@ -192,7 +192,13 @@ function getStreetNameList($key = FALSE)
     'Broadway',
   );
 
-  $street_names = array_merge($trees, $numbers, $presidents, $birds, $geo, $common);
+  // Common Buildings
+  $street_names += array(
+    'Collage',
+    'Mint',
+    'Town Hall',
+    'Library',
+  );
 
   if ($key === FALSE)
   {
@@ -262,7 +268,7 @@ function buildStreetName()
 function getZip()
 {
   $offset = rand(0, 33098);
-  $handle = fopen('uszips.csv', 'r');
+  $handle = fopen(ROOT_PATH . '/modules/address/uszips.csv', 'r');
   if (!$handle)
   {
     die('Missing csv file.');
@@ -284,6 +290,3 @@ function getZip()
   }
   return $header;
 }
-
-?>
-</body>

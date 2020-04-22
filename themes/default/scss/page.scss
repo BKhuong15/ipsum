@@ -1,0 +1,190 @@
+@import "_constants.scss";
+
+*
+{
+  font-family: arial, helvetica, sans-serif;
+}
+
+body
+{
+  font-size: $font_normal;
+  margin: 0;
+}
+
+h1
+{
+  font-size: $font_huge;
+  margin-left: 20px;
+
+  &.debug
+  {
+    color: rosybrown;
+  }
+}
+
+a
+{
+  text-decoration: none;
+  color: blue;
+}
+
+table
+{
+  font-size: $font_normal;
+  border-collapse: collapse;
+
+  body > &
+  {
+    margin-left: 20px;
+  }
+
+  th, td
+  {
+    border: 1px solid black;
+    padding: 2px 3px;
+  }
+}
+
+#menu
+{
+  width: 100%;
+  //height: 25px;
+  background-color: $color_tan;
+  font-size: $font_large;
+
+  a
+  {
+    display: inline-block;
+    margin: 5px;
+  }
+
+  ul
+  {
+    display: none;
+    //display: block;
+    position: absolute;
+    background-color: $color_tan;
+    margin: 0;
+    padding: 5px;
+
+    li
+    {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+  }
+}
+
+.operations
+{
+  body > &
+  {
+    margin-left: 20px;
+    margin-bottom: 5px;
+  }
+  a
+  {
+    margin-left: 10px;
+
+    &:first-of-type
+    {
+      margin: auto;
+    }
+  }
+}
+
+table.print-list
+{
+  .column-1
+  {
+    width: 100px;
+
+    input.button
+    {
+      width: 30px;
+    }
+
+    input.plus,
+    input.minus
+    {
+      width: 22px;
+      margin-left: 2px;
+    }
+  }
+  .column-2
+  {
+    width: 200px;
+  }
+}
+
+.print-card
+{
+  // 247px x 350px - Too tall but desired.
+  // 222px x 315px - 8 in landscape but only 6 in portrait.
+  // 212px x 300px - Too short but works.
+  width: 212px;
+  height: 300px;
+  float: left;
+  padding: 5px;
+  border: 1px solid black;
+  border-radius: 10px;
+  overflow: hidden;
+
+  page-break-inside: avoid;
+}
+
+#cover
+{
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  z-index: 99;
+  width: 100%;
+  height: 100%;
+  background-color: $color_black;
+  opacity: 0.2;
+}
+
+#modal
+{
+  position: fixed;
+  top: 100px;
+  left: 100px;
+
+  z-index: 100;
+  width: 500px;
+  height: 300px;
+  background-color: $color_white;
+
+  padding: 10px;
+  border: 2px solid $color_grey;
+  border-radius: 5px;
+  box-shadow: 0 5px 5px 1px $color_grey;
+
+  #close-modal
+  {
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    cursor: pointer;
+  }
+
+  h1
+  {
+    font-size: 16px;
+    margin: 0;
+  }
+  .field.submit
+  {
+    float: right;
+  }
+}
+
+input[name="submit"]
+{
+  background-color: $color_green;
+  padding: 5px;
+  min-width: 100px;
+}

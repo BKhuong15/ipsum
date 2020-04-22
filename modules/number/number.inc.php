@@ -1,44 +1,4 @@
-<?php include 'header.php';
-echo '<h1>Random Numbers</h1>';
-
-echo '<div class="group">';
-echo '<h3>10-Digit</h3>';
-for ($k = 0; $k < 10; $k++)
-{
-  echo buildNumber() . '<br>';
-}
-echo '</div>';
-
-echo '<div class="group">';
-echo '<h3>Fake SSN</h3>';
-for ($k = 0; $k < 10; $k++)
-{
-  echo buildFakeSSN() . '<br>';
-}
-echo '</div>';
-
-echo '<div class="group">';
-echo '<h3>Fake Payment</h3>';
-for ($k = 0; $k < 10; $k++)
-{
-  echo buildFakePayment() . '<br>';
-}
-echo '</div>';
-
-echo '<div class="group">';
-echo '<h3>Fake Phone</h3>';
-for ($k = 0; $k < 10; $k++)
-{
-  if ($k < 2)
-  {
-    echo '<strong>Rem:</strong> ' . buildFakePhone(TRUE) . '<br>';
-  }
-  else
-  {
-    echo '<strong>Fake:</strong> ' . buildFakePhone() . '<br>';
-  }
-}
-echo '</div>';
+<?php
 
 function buildNumber()
 {
@@ -127,6 +87,3 @@ function phoneFormat($value)
   }
   return $value;
 }
-
-?>
-</body>

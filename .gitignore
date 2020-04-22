@@ -5,3 +5,4 @@ files/
 platform.inc.php
 .phpunit.result.cache
 phpunit.phar
+*.db

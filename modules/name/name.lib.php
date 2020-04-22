@@ -1,83 +1,86 @@
-<?php include 'header.php';
+<?php
 
-echo '<h1>Random Names</h1>';
-
-echo '<div class="group">';
-echo '<h3>Final Fantasy</h3>';
-$names = getNamesFinalFantasy();
-for ($k = 0; $k < 10; $k++)
+function buildNameList()
 {
-  $rand = rand(0, count($names) - 1);
-  echo $names[$rand] . '<br>';
-  unset($names[$rand]);
-  $names = array_values($names);
-}
-echo '</div>';
+  echo '<h1>Random Names</h1>';
 
-echo '<div class="group">';
-echo '<h3>Star Wars</h3>';
-$names = getNamesStarWars();
-for ($k = 0; $k < 10; $k++)
-{
-  $rand = rand(0, count($names) - 1);
-  echo $names[$rand] . '<br>';
-  unset($names[$rand]);
-  $names = array_values($names);
-}
-echo '</div>';
+  echo '<div class="group">';
+  echo '<h3>Final Fantasy</h3>';
+  $names = getNamesFinalFantasy();
+  for ($k = 0; $k < 10; $k++)
+  {
+    $rand = rand(0, count($names) - 1);
+    echo $names[$rand] . '<br>';
+    unset($names[$rand]);
+    $names = array_values($names);
+  }
+  echo '</div>';
 
-echo '<div class="group">';
-echo '<h3>Harry Potter</h3>';
-$names = getNamesHarryPotter();
-for ($k = 0; $k < 10; $k++)
-{
-  $rand = rand(0, count($names) - 1);
-  echo $names[$rand] . '<br>';
-  unset($names[$rand]);
-  $names = array_values($names);
-}
-echo '</div>';
+  echo '<div class="group">';
+  echo '<h3>Star Wars</h3>';
+  $names = getNamesStarWars();
+  for ($k = 0; $k < 10; $k++)
+  {
+    $rand = rand(0, count($names) - 1);
+    echo $names[$rand] . '<br>';
+    unset($names[$rand]);
+    $names = array_values($names);
+  }
+  echo '</div>';
 
-echo '<div class="group">';
-echo '<h3>Star Trek</h3>';
-$names = getNamesStarTrek();
-for ($k = 0; $k < 10; $k++)
-{
-  $rand = rand(0, count($names) - 1);
-  echo $names[$rand] . '<br>';
-  unset($names[$rand]);
-  $names = array_values($names);
-}
-echo '</div>';
+  echo '<div class="group">';
+  echo '<h3>Harry Potter</h3>';
+  $names = getNamesHarryPotter();
+  for ($k = 0; $k < 10; $k++)
+  {
+    $rand = rand(0, count($names) - 1);
+    echo $names[$rand] . '<br>';
+    unset($names[$rand]);
+    $names = array_values($names);
+  }
+  echo '</div>';
 
-echo '<div class="group">';
-echo '<h3>Marvel</h3>';
-$names = getNamesMarvel();
-for ($k = 0; $k < 10; $k++)
-{
-  $rand = rand(0, count($names) - 1);
-  echo $names[$rand] . '<br>';
-  unset($names[$rand]);
-  $names = array_values($names);
+  echo '<div class="group">';
+  echo '<h3>Star Trek</h3>';
+  $names = getNamesStarTrek();
+  for ($k = 0; $k < 10; $k++)
+  {
+    $rand = rand(0, count($names) - 1);
+    echo $names[$rand] . '<br>';
+    unset($names[$rand]);
+    $names = array_values($names);
+  }
+  echo '</div>';
+
+  echo '<div class="group">';
+  echo '<h3>Marvel</h3>';
+  $names = getNamesMarvel();
+  for ($k = 0; $k < 10; $k++)
+  {
+    $rand = rand(0, count($names) - 1);
+    echo $names[$rand] . '<br>';
+    unset($names[$rand]);
+    $names = array_values($names);
+  }
+  echo '</div>';
 }
-echo '</div>';
 
 function getNamesFinalFantasy()
 {
   // Trees.
   $list = array(
-//    'Terra Branford',
-//    'Lock Cole',
+    'Terra Branford',
+    'Lock Cole',
     'Celes Chere',
-//    'Edgar Figaro',
-//    'Sabin Figaro',
+    'Edgar Figaro',
+    'Sabin Figaro',
     'Cyan Garamonde',
     'Setzer Gabbiani',
-//    'Strago Magus',
+    'Strago Magus',
     'Relm Arrowny',
 
-//    'Cloud Strife',
-//    'Tifa Lockheart',
+    'Cloud Strife',
+    'Tifa Lockheart',
     'Aerith Gainsborough',
     'Barret Wallace',
     'Yuffie Kisaragi',
@@ -197,9 +200,9 @@ function getNamesStarWars()
 function getNamesHarryPotter()
 {
   $list = array(
-//    'Harry Potter',
-//    'Hermione Granger',
-//    'Ron Weasley',
+    'Harry Potter',
+    'Hermione Granger',
+    'Ron Weasley',
     'Tom Riddle',
     'Albus Dumbledore',
     'Severus Snape',
@@ -393,12 +396,61 @@ function getNamesMarvel()
   return $list;
 }
 
-function getNamesBBT()
+function getNamesTheOffice()
+{
+  return array(
+    'Jim Halpert',
+    'Dwight Schrut',
+  );
+}
+
+function getNamesBigBang()
+{
+  return array(
+    'Sheldon Cooper',
+    'Amy Farrah Fowler',
+    'Eric Gablehauser',
+    'Leonard Hofstadter',
+    'Bert Kibbler',
+    'Raj Koothrappali',
+    'Barry Kripke',
+    'Bernadette Rostenkowski',
+    'Emily Sweeney',
+    'Howard Wolowitz',
+    'Janine Davis',
+  );
+}
+
+function getNamesDisney()
+{
+  return array(
+    'Alice Kingsley',
+    'Anna Airendale',
+    'Olaf Snow',
+  );
+}
+
+function getNameGenderList($key = FALSE)
 {
   $list = array(
-    ''
+    1 => 'Male',
+    2 => 'Female',
   );
-  return $list;
+
+  return getListItem($list, $key);
 }
-?>
-</body>
+
+function formatName($name)
+{
+  $output = $name['first_name'];
+  if ($name['middle_name'])
+  {
+    $output .= ' ' . $name['middle_name'];
+  }
+  if ($name['nickname'])
+  {
+    $output .= ' "' . $name['nickname'] . '"';
+  }
+  $output .= ' ' . $name['last_name'];
+  return $output;
+}
