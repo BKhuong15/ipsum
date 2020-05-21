@@ -89,14 +89,20 @@ function getDiagnosisList()
   return $list;
 }
 
-function getProcedureList()
+function getProcedurePTEvalList()
 {
   $list = array(
     // Evaluation.
     '97161' => 'PT Eval: Low Complexity',
     '97162' => 'PT Eval: Moderate Complexity',
     '97163' => 'PT Eval: High Complexity',
+  );
+  return $list;
+}
 
+function getProcedurePTVisitList()
+{
+  $list = array(
     // Treatments
     '97140' => 'Manual Therapy',
     '97530' => 'Therapeutic/Functional Activities',

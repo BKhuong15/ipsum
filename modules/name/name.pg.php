@@ -58,15 +58,36 @@ function namePatientPage()
   $output .= lineItem('Work Phone', phoneFormat(buildFakePhone()));
   $output .= htmlSolo('br');
 
+  // Case.
+  $providers = getNamesStarTrek();
+  $output .= lineItem('Assigned Provider', $providers[rand(0, count($providers) - 1)]);
   $referring = getNamesBigBang();
   $output .= lineItem('Referring Physician', $referring[rand(0, count($referring) - 1)]);
-  $output .= htmlSolo('br');
+  $output .= lineItem('10-Digits (NPI)', rand(1000000000, 9999999999));
+  $output .= lineItem('9-Digits (TIN)', rand(100000000, 999999999));
 
   $output .= lineItem('Onset Date', buildRecentDate(60));
+
+  $diagnosis_count = rand(0,10);
+  $diagnosis = getDiagnosisList();
+  $output .= lineItem('Diagnosis', getRandomEntryWithKey($diagnosis));
+  for ($k = 7; $k < $diagnosis_count; $k++)
+  {
+    $output .= lineItem('Diagnosis', getRandomEntryWithKey($diagnosis));
+  }
   $output .= htmlSolo('br');
 
+  // Note.
+  $procedures_eval = getProcedurePTEvalList();
+  $procedures_visit = getProcedurePTVisitList();
+  $procedure_count = rand(0, 10);
+  $output .= lineItem('Eval', getRandomEntryWithKey($procedures_eval));
+  $output .= lineItem('Visit', getRandomEntryWithKey($procedures_visit));
+  for ($k = 6; $k < $procedure_count; $k++)
+  {
+    $output .= lineItem('Visit', getRandomEntryWithKey($procedures_visit));
+  }
 
-  // Address.
 
 
   $page->setBody($output);
@@ -270,6 +291,7 @@ function nameUpsertForm()
   // Category.
   $categories = getNameCategoryList();
   $field = new FieldSelect('name_category_id', 'Category', $categories);
+  $field->setValue(getUrlID('name_category_id'));
   $form->addField($field);
 
   // Submit

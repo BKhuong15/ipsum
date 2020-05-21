@@ -336,6 +336,21 @@ function generateRandomString($length = 32)
   return base64_encode(openssl_random_pseudo_bytes($length));
 }
 
+function getRandomEntry($list)
+{
+  $selection = rand(0, count($list) - 1);
+  $temp = $list[$selection];
+  return $temp;
+}
+
+function getRandomEntryWithKey(&$list)
+{
+  $selection = rand(0, count($list) - 1);
+  $key = array_keys($list)[$selection];
+  $temp = $key . ': ' . array_values($list)[$selection];
+  unset($selection[$key]);
+  return $temp;
+}
 /******************************************************************************
  *
  *     Sanitation and string processing functions.
