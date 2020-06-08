@@ -46,7 +46,7 @@ function userLogout()
 
 function userListPage()
 {
-  $template = new ListPageTemplate();
+  $template = new ListPageTemplate('Users', 'users', 'user');
   $template->setTitle('Users');
 
   $table = new TableTemplate('user_list');
@@ -61,7 +61,7 @@ function userListPage()
     $table->addRow($row);
   }
 
-  $template->setList(a('New User', '/user') . $table);
+  $template->setList($table);
 
   return $template;
 }

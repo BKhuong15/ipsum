@@ -51,7 +51,8 @@ function getRegistry($path = FALSE)
 {
   $registry = array(
     // Global.
-    '/' => 'home',
+    '/' => 'home', /** @uses home() */
+    'home' => 'home',
     'unknown' => 'unknown',
 
     'user' => 'userUpsertForm',
@@ -87,6 +88,9 @@ function menu()
 {
   $output = '';
 
+  // Home.
+  $output .= a('Home', '/home');
+
   // Characters
   $output .= a('Patients', '/patient');
   $submenu = new ListTemplate('ul');
@@ -120,11 +124,21 @@ function home()
   $output = menu();
   $output .= htmlWrap('h1', 'QuickEMR Lorim Ipsum Patient Generator');
   $output .= htmlWrap('h3', 'Name of the day.');
+
+  $list = new ListTemplate('ul');
+  $categories = getNameCategoryList();
+  foreach($categories as $category_id => $category)
+  {
+    $link = a($category, '/patient', array('query' => array('name_category_id' => $category_id)));
+    $list->addListItem($link);
+  }
+  $output .= $list;
+
   $list = new ListTemplate('ul');
   for ($i = 0; $i < 10; $i++)
   {
     $name = getNameRandom();
-    $link = a(formatName($name), '/name', array('query' => array('id' => $name['id'])));
+    $link = a(formatName($name), '/patient', array('query' => array('id' => $name['id'])));
     $list->addListItem($link);
   }
   $output .= $list;

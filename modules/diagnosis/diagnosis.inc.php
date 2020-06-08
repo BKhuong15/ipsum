@@ -8,9 +8,8 @@ function getDiagnosisList()
 
     // Lumbar Spine.
     'M54.5' => 'Low back pain.',
-//      'M54.522' => ' Radiculopathy, cervicothoracic region',
-//      'M53.2x2' => ' Spinal instabilities, cervical region',
-//      'M54.12' => '	Radiculopathy, cervical region',
+    'M54.10' => ' Radiculopathy, cervicothoracic region',
+    'M53.2x2' => ' Spinal instabilities, cervical region',
 
     // Thoracic Spine
     'M54.6' => 'Pain in thoracic spine',

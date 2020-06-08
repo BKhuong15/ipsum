@@ -157,7 +157,7 @@ function getName($id)
   return $db->selectObject($query);
 }
 
-function getNameRandom()
+function getNameRandom($name_category_id = FALSE)
 {
   GLOBAL $db;
 
@@ -171,6 +171,11 @@ function getNameRandom()
   $query->addField('name_category_id');
   $query->addLimit(1);
   $query->setOrderRandom();
+
+  if ($name_category_id)
+  {
+    $query->addConditionSimple('name_category_id', $name_category_id);
+  }
 
   return $db->selectObject($query);
 }

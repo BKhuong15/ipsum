@@ -12,9 +12,14 @@ function namePatientPage()
   $output .= htmlWrap('h1', 'Random Patient');
 
   $name_id = getUrlID('name_id');
+  $name_category_id = getUrlID('name_category_id');
   if ($name_id)
   {
     $name = getName($name_id);
+  }
+  elseif($name_category_id)
+  {
+    $name = getNameRandom($name_category_id);
   }
   else
   {
@@ -68,25 +73,20 @@ function namePatientPage()
 
   $output .= lineItem('Onset Date', buildRecentDate(60));
 
-  $diagnosis_count = rand(0,10);
   $diagnosis = getDiagnosisList();
   $output .= lineItem('Diagnosis', getRandomEntryWithKey($diagnosis));
-  for ($k = 7; $k < $diagnosis_count; $k++)
-  {
-    $output .= lineItem('Diagnosis', getRandomEntryWithKey($diagnosis));
-  }
+  $output .= lineItem('Diagnosis', getRandomEntryWithKey($diagnosis));
+  $output .= lineItem('Diagnosis', getRandomEntryWithKey($diagnosis));
+  $output .= lineItem('Diagnosis', getRandomEntryWithKey($diagnosis));
   $output .= htmlSolo('br');
 
   // Note.
   $procedures_eval = getProcedurePTEvalList();
   $procedures_visit = getProcedurePTVisitList();
-  $procedure_count = rand(0, 10);
   $output .= lineItem('Eval', getRandomEntryWithKey($procedures_eval));
   $output .= lineItem('Visit', getRandomEntryWithKey($procedures_visit));
-  for ($k = 6; $k < $procedure_count; $k++)
-  {
-    $output .= lineItem('Visit', getRandomEntryWithKey($procedures_visit));
-  }
+  $output .= lineItem('Visit', getRandomEntryWithKey($procedures_visit));
+  $output .= lineItem('Visit', getRandomEntryWithKey($procedures_visit));
 
 
 
