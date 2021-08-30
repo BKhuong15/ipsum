@@ -136,6 +136,7 @@ function getNamePager($page = 1, $name_category_id = 0)
   {
     $query->addConditionSimple('name_category_id', $name_category_id);
   }
+  $query->addOrderSimple('name_category_id')->addOrderSimple('last_name')->addOrderSimple('first_name');
 
   return $db->select($query);
 }

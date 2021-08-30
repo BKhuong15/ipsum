@@ -149,7 +149,7 @@ class ListPageTemplate extends HTMLTemplate
         $attr = array(
           'query' => array('page' => ($this->page - 1)),
         );
-        $operations .= a('Prev Page', $this->list_item_path, $attr);
+        $operations .= a('Prev Page', $this->list_path, $attr);
       }
 
       if ($this->list->count() >= PAGER_SIZE_DEFAULT)
@@ -157,7 +157,7 @@ class ListPageTemplate extends HTMLTemplate
         $attr = array(
           'query' => array('page' => ($this->page + 1)),
         );
-        $operations .= a('Next Page', $this->list_item_path, $attr);
+        $operations .= a('Next Page', $this->list_path, $attr);
       }
     }
     $output .= htmlWrap('div', $operations, array('class' => array('operations')));
