@@ -403,6 +403,32 @@ function getNamesDisney()
   );
 }
 
+function getNamesInsuranceCompanies()
+{
+  return array(
+    'Abstergo',
+    'AIM',
+    'Aperture (Medicare)',
+    'Atlas',
+    'Blue Sun (BCBS)',
+    'Cyberdyne (Medicare)',
+    'Dunwich',
+    'Fontaine',
+    'Hydra',
+    'Hyperion',
+    'Initech',
+    'Ingen',
+    'LexCorp',
+    'OsCorp',
+    'Rocket',
+    'Shinra (Medicare)',
+    'Umbrella Inc (Medicare)',
+    'Vault Tec',
+    'Weyland Corp (Medicare)',
+    'Zorg Industries',
+  );
+}
+
 function getNameGenderList($key = FALSE)
 {
   $list = array(
@@ -426,4 +452,36 @@ function formatName($name)
   }
   $output .= ' ' . $name['last_name'];
   return $output;
+}
+
+function randomCode($length = 12)
+{
+  $values = array_merge(
+    range('A', 'Z'), // 26
+//    range('a', 'z'), // 26
+    range('0', '9') // 10
+  );
+
+  // -5 ambiguous characters.
+//  unset($values[array_search('i', $values)]);
+  unset($values[array_search('I', $values)]);
+//  unset($values[array_search('l', $values)]);
+  unset($values[array_search('L', $values)]);
+//  unset($values[array_search('o', $values)]);
+  unset($values[array_search('O', $values)]);
+  unset($values[array_search('1', $values)]);
+  unset($values[array_search('0', $values)]);
+
+  $values = array_values($values);
+  $high_offset = count($values) - 1;
+
+  // Total 33.
+  $code = '';
+  for ($k = 0; $k < $length; $k++)
+  {
+    $code .= $values[rand(0, $high_offset)];
+  }
+
+  //31^8 = 1/0.85*10^12 (Trillion)
+  return $code;
 }

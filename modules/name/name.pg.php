@@ -80,6 +80,13 @@ function namePatientPage()
   $output .= lineItem('Diagnosis', getRandomEntryWithKey($diagnosis));
   $output .= htmlSolo('br');
 
+  // Insurance
+  $insurance = getNamesInsuranceCompanies()();
+  $output .= lineItem('Insurance', $providers[rand(0, count($insurance) - 1)]);
+  $output .= lineItem('Policy Number', randomCode());
+  $output .= lineItem('Group', rand(0,10) > 8 ? randomCode(5) : 'N/A');
+  $output .= htmlSolo('br');
+
   // Note.
   $procedures_eval = getProcedurePTEvalList();
   $procedures_visit = getProcedurePTVisitList();
@@ -87,7 +94,6 @@ function namePatientPage()
   $output .= lineItem('Visit', getRandomEntryWithKey($procedures_visit));
   $output .= lineItem('Visit', getRandomEntryWithKey($procedures_visit));
   $output .= lineItem('Visit', getRandomEntryWithKey($procedures_visit));
-
 
 
   $page->setBody($output);
