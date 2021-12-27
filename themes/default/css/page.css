@@ -19,39 +19,46 @@ h1.debug {
   color: rosybrown;
 }
 
-/* line 25, ../scss/page.scss */
+/* line 24, ../scss/page.scss */
+.line-item-group {
+  margin-left: 10px;
+  float: left;
+  width: 300px;
+}
+
+/* line 31, ../scss/page.scss */
 a {
   text-decoration: none;
   color: blue;
 }
 
-/* line 31, ../scss/page.scss */
+/* line 37, ../scss/page.scss */
 table {
   font-size: 14px;
   border-collapse: collapse;
 }
-/* line 36, ../scss/page.scss */
+/* line 42, ../scss/page.scss */
 body > table {
   margin-left: 20px;
 }
-/* line 41, ../scss/page.scss */
+/* line 47, ../scss/page.scss */
 table th, table td {
   border: 1px solid black;
   padding: 2px 3px;
 }
 
-/* line 48, ../scss/page.scss */
+/* line 54, ../scss/page.scss */
 #menu {
   width: 100%;
   background-color: #FFE3AA;
   font-size: 18px;
 }
-/* line 55, ../scss/page.scss */
+/* line 61, ../scss/page.scss */
 #menu a {
   display: inline-block;
   margin: 5px;
 }
-/* line 61, ../scss/page.scss */
+/* line 67, ../scss/page.scss */
 #menu ul {
   display: none;
   position: absolute;
@@ -59,47 +66,47 @@ table th, table td {
   margin: 0;
   padding: 5px;
 }
-/* line 70, ../scss/page.scss */
+/* line 76, ../scss/page.scss */
 #menu ul li {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-/* line 81, ../scss/page.scss */
+/* line 87, ../scss/page.scss */
 body > .operations {
   margin-left: 20px;
   margin-bottom: 5px;
 }
-/* line 86, ../scss/page.scss */
+/* line 92, ../scss/page.scss */
 .operations a {
   margin-left: 10px;
 }
-/* line 90, ../scss/page.scss */
+/* line 96, ../scss/page.scss */
 .operations a:first-of-type {
   margin: auto;
 }
 
-/* line 99, ../scss/page.scss */
+/* line 105, ../scss/page.scss */
 table.print-list .column-1 {
   width: 100px;
 }
-/* line 103, ../scss/page.scss */
+/* line 109, ../scss/page.scss */
 table.print-list .column-1 input.button {
   width: 30px;
 }
-/* line 108, ../scss/page.scss */
+/* line 114, ../scss/page.scss */
 table.print-list .column-1 input.plus,
 table.print-list .column-1 input.minus {
   width: 22px;
   margin-left: 2px;
 }
-/* line 115, ../scss/page.scss */
+/* line 121, ../scss/page.scss */
 table.print-list .column-2 {
   width: 200px;
 }
 
-/* line 121, ../scss/page.scss */
+/* line 127, ../scss/page.scss */
 .print-card {
   width: 212px;
   height: 300px;
@@ -111,7 +118,7 @@ table.print-list .column-2 {
   page-break-inside: avoid;
 }
 
-/* line 137, ../scss/page.scss */
+/* line 143, ../scss/page.scss */
 #cover {
   position: fixed;
   top: 0;
@@ -123,7 +130,7 @@ table.print-list .column-2 {
   opacity: 0.2;
 }
 
-/* line 150, ../scss/page.scss */
+/* line 156, ../scss/page.scss */
 #modal {
   position: fixed;
   top: 100px;
@@ -137,24 +144,24 @@ table.print-list .column-2 {
   border-radius: 5px;
   box-shadow: 0 5px 5px 1px #838383;
 }
-/* line 166, ../scss/page.scss */
+/* line 172, ../scss/page.scss */
 #modal #close-modal {
   position: absolute;
   right: 20px;
   top: 10px;
   cursor: pointer;
 }
-/* line 174, ../scss/page.scss */
+/* line 180, ../scss/page.scss */
 #modal h1 {
   font-size: 16px;
   margin: 0;
 }
-/* line 179, ../scss/page.scss */
+/* line 185, ../scss/page.scss */
 #modal .field.submit {
   float: right;
 }
 
-/* line 185, ../scss/page.scss */
+/* line 191, ../scss/page.scss */
 input[name="submit"] {
   background-color: #5C9632;
   padding: 5px;

@@ -27,73 +27,113 @@ function namePatientPage()
   }
 
   // Name.
-  $output .= lineItem('Name', formatName($name));
-  $output .= htmlSolo('br');
+  $group = htmlWrap('h3', 'Patient');
+  $group .= lineItem('Name', formatName($name));
+  $group .= htmlSolo('br');
 
-  $output .= htmlWrap('strong', 'Address:') . htmlSolo('br');
-  $output .= htmlWrap('div', buildAddress(), array('class' => array('address')));
-  $output .= htmlSolo('br');
+  $group .= htmlWrap('strong', 'Address:') . htmlSolo('br');
+  $group .= htmlWrap('div', buildAddress(), array('class' => array('address')));
+  $group .= htmlSolo('br');
 
   $year_offset = rand(18, 99);
-  $output .= lineItem('DOB', buildDate('-' . $year_offset) . ' (' . $year_offset . ')');
-  $output .= lineItem('Gender', getNameGenderList($name['gender']));
-  $output .= lineItem('Handedness', rand(0, 5) ? 'Right' : 'Left'); // 16.6% Chance of left hand.
-  $output .= htmlSolo('br');
+  $group .= lineItem('DOB', buildDate('-' . $year_offset) . ' (' . $year_offset . ')');
+  $group .= lineItem('Gender', getNameGenderList($name['gender']));
+  $group .= lineItem('Handedness', rand(0, 5) ? 'Right' : 'Left'); // 16.6% Chance of left hand.
+  $group .= htmlSolo('br');
 
   $reminder_emails = !rand(0, 3); // 25% chance of reminder e-mail.
   $reminder_calls = !rand(0, 3); // 25% chance of reminder calls.
   $reminder_text = !rand(0, 3); // 25% chance of reminder text.
   if ($reminder_emails)
   {
-    $output .= lineItem('Reminder E-Mail', 'daniel+' . stringToAttr($name['first_name'] . $name['last_name']) . '@danielphenry.com');
+    $group .= lineItem('Reminder E-Mail', 'daniel+' . stringToAttr($name['first_name'] . $name['last_name']) . '@danielphenry.com');
   }
-  $output .= lineItem('E-Mail', stringToAttr($name['first_name']) . '.' . stringToAttr($name['last_name']) . '@example.com');
-  $output .= lineItem('Reminder E-mail', boolFormatter($reminder_emails));
-  $output .= lineItem('Reminder Calls', boolFormatter($reminder_calls));
-  $output .= lineItem('Reminder Text', boolFormatter($reminder_text));
+  $group .= lineItem('E-Mail', stringToAttr($name['first_name']) . '.' . stringToAttr($name['last_name']) . '@example.com');
+  $group .= lineItem('Reminder E-mail', boolFormatter($reminder_emails));
+  $group .= lineItem('Reminder Calls', boolFormatter($reminder_calls));
+  $group .= lineItem('Reminder Text', boolFormatter($reminder_text));
 
   if ($reminder_text)
   {
-    $output .= lineItem('Mobile Phone', phoneFormat('9187989501'));
+    $group .= lineItem('Mobile Phone', phoneFormat('9187989501'));
   }
   if ($reminder_calls)
   {
-    $output .= lineItem('Home Phone', phoneFormat(getNotifyPhoneList(rand(0,3))));
+    $group .= lineItem('Home Phone', phoneFormat(getNotifyPhoneList(rand(0,3))));
   }
-  $output .= lineItem('Work Phone', phoneFormat(buildFakePhone()));
-  $output .= htmlSolo('br');
+  $group .= lineItem('Work Phone', phoneFormat(buildFakePhone()));
+  $output .= htmlWrap('div', $group, array('class' => array('line-item-group')));
 
   // Case.
+  $group = htmlWrap('h3', 'Case');
   $providers = getNamesStarTrek();
-  $output .= lineItem('Assigned Provider', $providers[rand(0, count($providers) - 1)]);
+  $group .= lineItem('Assigned Provider', $providers[rand(0, count($providers) - 1)]);
   $referring = getNamesBigBang();
-  $output .= lineItem('Referring Physician', $referring[rand(0, count($referring) - 1)]);
-  $output .= lineItem('10-Digits (NPI)', rand(1000000000, 9999999999));
-  $output .= lineItem('9-Digits (TIN)', rand(100000000, 999999999));
+  $group .= lineItem('Referring Physician', $referring[rand(0, count($referring) - 1)]);
+  $group .= lineItem('10-Digits (NPI)', rand(1000000000, 9999999999));
+  $group .= lineItem('9-Digits (TIN)', rand(100000000, 999999999));
 
-  $output .= lineItem('Onset Date', buildRecentDate(60));
+  $group .= lineItem('Onset Date', buildRecentDate(60));
 
   $diagnosis = getDiagnosisList();
-  $output .= lineItem('Diagnosis', getRandomEntryWithKey($diagnosis));
-  $output .= lineItem('Diagnosis', getRandomEntryWithKey($diagnosis));
-  $output .= lineItem('Diagnosis', getRandomEntryWithKey($diagnosis));
-  $output .= lineItem('Diagnosis', getRandomEntryWithKey($diagnosis));
-  $output .= htmlSolo('br');
+  $group .= lineItem('Diagnosis', getRandomEntryWithKey($diagnosis));
+  $group .= lineItem('Diagnosis', getRandomEntryWithKey($diagnosis));
+  $group .= lineItem('Diagnosis', getRandomEntryWithKey($diagnosis));
+  $group .= lineItem('Diagnosis', getRandomEntryWithKey($diagnosis));
+  $group .= htmlSolo('br');
 
-  // Insurance
-  $insurance = getNamesInsuranceCompanies()();
-  $output .= lineItem('Insurance', $providers[rand(0, count($insurance) - 1)]);
-  $output .= lineItem('Policy Number', randomCode());
-  $output .= lineItem('Group', rand(0,10) > 8 ? randomCode(5) : 'N/A');
-  $output .= htmlSolo('br');
+  // Insurance.
+  $insurance = getNamesInsuranceCompanies();
+  $group .= lineItem('Primary Insurance', $insurance[rand(0, count($insurance) - 1)]);
+  $group .= lineItem('Policy Number', randomCode());
+  $group .= lineItem('Group', rand(1, 10) > 8 ? randomCode(5) : 'N/A');
+  $date_jan_1 = new DateTime('Jan 1');
+  $group .= lineItem('Start Date', $date_jan_1->format('m/d/Y'));
+
+  $policy_holder = rand(1,15);
+  if ($policy_holder === 15) // 6%
+  {
+    $policy_holder_label = 'Other';
+  }
+  elseif ($policy_holder >= 14) // 6%
+  {
+    $policy_holder_label = 'Employer';
+  }
+  elseif ($policy_holder >= 11) // 18%
+  {
+    $policy_holder_label = 'Parent';
+  }
+  elseif ($policy_holder >= 8) // 18%
+  {
+    $policy_holder_label = 'Spouse';
+  }
+  else // 48 %
+  {
+    $policy_holder_label = 'Self';
+  }
+  $group .= lineItem('Policy Holder', $policy_holder_label);
+  if ($policy_holder_label !== 'Self')
+  {
+    $name = getNameRandom();
+    $group .= lineItem('Name', formatName($name));
+    $group .= htmlWrap('strong', 'Address:') . htmlSolo('br');
+    $group .= htmlWrap('div', buildAddress(), array('class' => array('address')));
+    $year_offset = rand(18, 99);
+    $group .= lineItem('DOB', buildDate('-' . $year_offset) . ' (' . $year_offset . ')');
+    $group .= lineItem('Gender', getNameGenderList($name['gender']));
+  }
+  $output .= htmlWrap('div', $group, array('class' => array('line-item-group')));
 
   // Note.
+  $group = htmlWrap('h3', 'Patient');
   $procedures_eval = getProcedurePTEvalList();
   $procedures_visit = getProcedurePTVisitList();
-  $output .= lineItem('Eval', getRandomEntryWithKey($procedures_eval));
-  $output .= lineItem('Visit', getRandomEntryWithKey($procedures_visit));
-  $output .= lineItem('Visit', getRandomEntryWithKey($procedures_visit));
-  $output .= lineItem('Visit', getRandomEntryWithKey($procedures_visit));
+  $group .= lineItem('Eval', getRandomEntryWithKey($procedures_eval));
+  $group .= lineItem('Visit', getRandomEntryWithKey($procedures_visit));
+  $group .= lineItem('Visit', getRandomEntryWithKey($procedures_visit));
+  $group .= lineItem('Visit', getRandomEntryWithKey($procedures_visit));
+
+  $output .= htmlWrap('div', $group, array('class' => array('line-item-group')));
 
 
   $page->setBody($output);
