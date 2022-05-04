@@ -11,6 +11,7 @@ function namePatientPage()
   $output = menu();
   $output .= htmlWrap('h1', 'Random Patient');
 
+  // Login
   $name_id = getUrlID('name_id');
   $name_category_id = getUrlID('name_category_id');
   if ($name_id)
@@ -30,6 +31,10 @@ function namePatientPage()
   $group = htmlWrap('h3', 'Patient');
   $group .= lineItem('Name', formatName($name));
   $group .= htmlSolo('br');
+
+  $group .= lineItem('Username (email)', 'daniel+' . toMachine($name['first_name']). rand(1, 100) . '@danielphenry.com');
+  $group .= lineItem('Username (plaintext)', 'dp' . toMachine($name['first_name']) . rand(1, 100));
+  $group .= lineItem('Password', generateRandomCode(10)) . htmlSolo('br');;
 
   $group .= htmlWrap('strong', 'Address:') . htmlSolo('br');
   $group .= htmlWrap('div', buildAddress(), array('class' => array('address')));
@@ -114,18 +119,21 @@ function namePatientPage()
   $group .= lineItem('Policy Holder', $policy_holder_label);
   if ($policy_holder_label !== 'Self')
   {
-    $name = getNameRandom();
-    $group .= lineItem('Name', formatName($name));
-    $group .= htmlWrap('strong', 'Address:') . htmlSolo('br');
-    $group .= htmlWrap('div', buildAddress(), array('class' => array('address')));
+    $guarantor = getNamesHarryPotter();
+    $group .= lineItem('Name', $guarantor[rand(0, count($guarantor) - 1)]);
     $year_offset = rand(18, 99);
     $group .= lineItem('DOB', buildDate('-' . $year_offset) . ' (' . $year_offset . ')');
-    $group .= lineItem('Gender', getNameGenderList($name['gender']));
+    $group .= lineItem('Gender', '-');
+    $group .= htmlSolo('br');
+
+    $group .= lineItem('Phone', phoneFormat(buildFakePhone()));
+    $group .= htmlWrap('strong', 'Address:') . htmlSolo('br');
+    $group .= htmlWrap('div', buildAddress(), array('class' => array('address')));
   }
   $output .= htmlWrap('div', $group, array('class' => array('line-item-group')));
 
   // Note.
-  $group = htmlWrap('h3', 'Patient');
+  $group = htmlWrap('h3', 'Note');
   $procedures_eval = getProcedurePTEvalList();
   $procedures_visit = getProcedurePTVisitList();
   $group .= lineItem('Eval', getRandomEntryWithKey($procedures_eval));

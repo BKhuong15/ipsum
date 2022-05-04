@@ -336,6 +336,48 @@ function generateRandomString($length = 32)
   return base64_encode(openssl_random_pseudo_bytes($length));
 }
 
+function generateRandomCode($length = 8, $upper = TRUE, $lower = TRUE, $number = TRUE, $special = TRUE)
+{
+  $values = array();
+  if ($upper)
+  {
+    $values = array_merge($values, range('A', 'Z'));
+    unset($values[array_search('I', $values)]);
+    unset($values[array_search('L', $values)]);
+    unset($values[array_search('O', $values)]);
+  }
+  if ($lower)
+  {
+    $values = array_merge($values, range('a', 'z'));
+    unset($values[array_search('i', $values)]);
+    unset($values[array_search('l', $values)]);
+    unset($values[array_search('o', $values)]);
+  }
+  if ($number)
+  {
+    $values = array_merge($values, range('0', '9'));
+    unset($values[array_search('1', $values)]);
+    unset($values[array_search('0', $values)]);
+  }
+  if ($special)
+  {
+    $values = array_merge($values, array('!','@','#','$','%','^','&','*')); //,'(',')','_','+','-','{','}','[',']','|','?','.','~'
+  }
+
+  $values = array_values($values);
+  $high_offset = count($values) - 1;
+
+  // Total 33.
+  $code = '';
+  for ($k = 0; $k < $length; $k++)
+  {
+    $code .= $values[rand(0, $high_offset)];
+  }
+
+  //31^8 = 1/0.85*10^12 (Trillion)
+  return $code;
+}
+
 function getRandomEntry($list)
 {
   $selection = rand(0, count($list) - 1);
