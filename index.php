@@ -69,8 +69,8 @@ function getRegistry($path = FALSE)
     'names' => 'nameListPage', /** @uses nameListPage() */
     'name-category' => 'nameCategoryUpsertForm', /** @uses nameCategoryUpsertForm() */
     'name-categories' => 'nameCategoryListPage', /** @uses nameCategoryListPage() */
-
-
+    'phrases' => 'phrasesPage', /** @uses phrasesPage() */
+    'phrase-category' => 'phraseUpsertForm', /** @uses phraseUpsertForm() */
   );
 
   if ($path)
@@ -91,7 +91,7 @@ function menu()
   // Home.
   $output .= a('Home', '/home');
 
-  // Characters
+  // Characters.
   $output .= a('Patients', '/patient');
   $submenu = new ListTemplate('ul');
   $submenu->addListItem(a('Names', '/names'));
@@ -103,6 +103,12 @@ function menu()
 //  $submenu = new ListTemplate('ul');
 //  $submenu->addListItem(a('Types', '/types'));
 //  $output .= $submenu;
+
+  // Text.
+  $output .= a('Text', '/phrases');
+  $submenu = new ListTemplate('ul');
+  $submenu->addListItem(a('Phrases', '/phrases'));
+  $output .= $submenu;
 
   // Users.
   GLOBAL $logged_in_user;
