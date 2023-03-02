@@ -34,19 +34,19 @@ function phraseUpsertForm()
   // Submit.
   if (isset($_SERVER['REQUEST_METHOD']) && ($_SERVER['REQUEST_METHOD'] == 'POST'))
   {
-    $template->addMessage(nameCategorySubmit());
+    $template->addMessage(nameSubmit());
   }
 
-  $name_category_id = getUrlID('id');
+  $name_id = getUrlID('id');
 
-  $form = new Form('ability_form');
-  $title = 'Add Phrase';
-  if ($name_category_id)
-  {
-    $ability = getNameCategory($name_category_id);
-    $form->setValues($ability);
-    $title = 'Edit Name Category ' . htmlWrap('em', $ability['name']);
-  }
+  $form = new Form('phrase_form');
+  $title = 'Add New Phrase';
+//  if ($name_id)
+//  {
+//    $name = getName($name_id);
+//    $form->setValues($name);
+//    $title = 'Edit name ' . htmlWrap('em', formatName($name));
+//  }
   $form->setTitle($title);
 
   // ID.
@@ -54,12 +54,18 @@ function phraseUpsertForm()
   $form->addField($field);
 
   // Name
-  $field = new FieldText('name', 'Name');
+  $field = new FieldText('phrase_text', 'Text');
   $form->addField($field);
+
+  // Category.
+  $text_elements = getTypeID();
+  $field = new FieldSelect('type_id', 'Type', $text_elements);
+  $form->addField($field);
+
 
   // Submit
   $value = 'Add';
-  if ($name_category_id)
+  if ($name_id)
   {
     $value = 'Update';
   }
@@ -67,7 +73,7 @@ function phraseUpsertForm()
   $form->addField($field);
 
   // Delete.
-  if ($name_category_id)
+  if ($name_id)
   {
     $field = new FieldSubmit('delete', 'Delete');
     $form->addField($field);
@@ -76,4 +82,40 @@ function phraseUpsertForm()
   // Template.
   $template->setForm($form);
   return $template;
+}
+
+function getTypeID($key = FALSE)
+{
+  $list = array(
+    1 => 'Word',
+    2 => 'Sentence',
+    3 => 'Paragraph',
+  );
+
+  return getListItem($list, $key);
+}
+
+function phraseSubmit()
+{
+  $name = $_POST;
+
+  if (isset($_POST['delete']))
+  {
+    deleteName($_POST['id']);
+    redirect('/phrase');
+  }
+
+  // Update.
+  if ($_POST['id'])
+  {
+    updatePhrase($name);
+    return htmlWrap('h3', 'Name ' . htmlWrap('em', formatName($name)) . ' (' . $name['id'] . ') updated.');
+  }
+  // Create.
+  else
+  {
+    unset($name['id']);
+    $name['id'] = createPhrase($name);
+    return htmlWrap('h3', 'Name ' . htmlWrap('em', formatName($name)) . ' (' . $name['id'] . ') created.');
+  }
 }

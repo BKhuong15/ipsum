@@ -83,3 +83,28 @@ function getTypeIDList($key = FALSE)
 
   return getListItem($list, $key);
 }
+
+function updatePhrase($name)
+{
+  GLOBAL $db;
+
+  $query = new UpdateQuery('phrases');
+  $query->addField('text', $name['text']);
+  $query->addField('type_id', $name['type_id']);
+
+  $query->addConditionSimple('id', $name['id']);
+
+  $db->update($query);
+}
+
+function createPhrase($name)
+{
+  GLOBAL $db;
+
+  $query = new InsertQuery('phrases');
+  $query->addField('text', $name['text']);
+  $query->addField('type_id', $name['type_id']);
+
+
+  return $db->insert($query);
+}
