@@ -16,7 +16,7 @@ if (!file_exists(DB_PATH))
 
   // pbs
   installName();
-  installPhrases();
+  installPhrase();
 }
 
 redirect('/');

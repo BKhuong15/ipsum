@@ -67,4 +67,5 @@ include ROOT_PATH . '/modules/diagnosis/diagnosis.inc.php';
 //include ROOT_PATH . '/modules/type/type.pg.php';
 //include ROOT_PATH . '/modules/type/type.lib.php';
 
-include ROOT_PATH . '/modules/phrase/phrases.pg.php';
+include ROOT_PATH . '/modules/phrase/phrase.pg.php';
+include ROOT_PATH . '/modules/phrase/phrase.db.php';
