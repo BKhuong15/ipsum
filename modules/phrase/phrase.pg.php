@@ -81,8 +81,6 @@ function phraseUpsertForm()
     $form->addField($field);
   }
 
-
-
   // Template.
   $template->setForm($form);
   return $template;
@@ -109,22 +107,22 @@ function phraseSubmit()
   // Try not to delete original data, if I need to log it.
   if (isset($_POST['delete']))
   {
-    deleteName($_POST['id']);
-    redirect('/phrase');
+    deletePhrase($_POST['id']);
+    redirect('/phrases');
   }
 
   // Update.
   if ($_POST['id'])
   {
     updatePhrase($phrase);
-    return htmlWrap('h3', 'Name ' . htmlWrap('em', $phrase) . ' (' . $phrase['id'] . ') updated.');
+    return htmlWrap('h3', 'Name ' . htmlWrap('em', $phrase['text']) . ' (' . $phrase['id'] . ') updated.');
   }
   // Create.
   else
   {
     unset($phrase['id']);
     $phrase['id'] = createPhrase($phrase);
-    return htmlWrap('h3', 'Phrase ' . htmlWrap('em', $phrase) . ' (' . $phrase['id'] . ') created.');
+    return htmlWrap('h3', 'Phrase ' . htmlWrap('em', $phrase['text']) . ' (' . $phrase['id'] . ') created.');
   }
 }
 
