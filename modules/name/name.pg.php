@@ -32,7 +32,7 @@ function namePatientPage()
   $group .= lineItem('Name', formatName($name));
   $group .= htmlSolo('br');
 
-  $group .= lineItem('Username (email)', 'daniel+' . toMachine($name['first_name']). rand(1, 100) . '@danielphenry.com');
+  $group .= lineItem('Username (email)', 'daniel+' . toMachine($name['first_name']). rand(1, 100) . '@danielphenry.net');
   $group .= lineItem('Username (plaintext)', 'dp' . toMachine($name['first_name']) . rand(1, 100));
   $group .= lineItem('Password', generateRandomCode(10)) . htmlSolo('br');;
 
