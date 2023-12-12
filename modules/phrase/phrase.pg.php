@@ -1,9 +1,10 @@
 <?php
 function phrasesPage()
 {
-  echo htmlWrap('p', ipsum(100));
-  echo htmlWrap('p', ipsum(500));
-  echo htmlWrap('p', ipsum(1000));
+  echo menu();
+  echo htmlWrap('p', ipsum(100)) . htmlSolo('input', array('type' => 'button', 'value' => 'Copy', array('class' => array('copy'))));
+  echo htmlWrap('p', ipsum(500)) . htmlSolo('input', array('type' => 'button', 'value' => 'Copy', array('class' => array('copy'))));
+  echo htmlWrap('p', ipsum(1000)) . htmlSolo('input', array('type' => 'button', 'value' => 'Copy', array('class' => array('copy'))));
   die();
   $page = getUrlID('page', 1);
 
@@ -44,7 +45,23 @@ In connection with this appellative of "Whalebone whales," it is of great import
 But it may possibly be conceived that, in the internal parts of the whale, in his anatomy—there, at least, we shall be able to hit the right classification. Nay; what thing, for example, is there in the Greenland whale’s anatomy more striking than his baleen? Yet we have seen that by his baleen it is impossible correctly to classify the Greenland whale. And if you descend into the bowels of the various leviathans, why there you will not find distinctions a fiftieth part as available to the systematizer as those external ones already enumerated. What then remains? nothing but to take hold of the whales bodily, in their entire liberal volume, and boldly sort them that way. And this is the Bibliographical system here adopted; and it is the only one that can possibly succeed, for it alone is practicable. To proceed.';
   $sample .= ' Of the names in this list of whale authors, only those following Owen ever saw living whales; and but one of them was a real professional harpooneer and whaleman. I mean Captain Scoresby. On the separate subject of the Greenland or right-whale, he is the best existing authority. But Scoresby knew nothing and says nothing of the great sperm whale, compared with which the Greenland whale is almost unworthy mentioning. And here be it said, that the Greenland whale is an usurper upon the throne of the seas. He is not even by any means the largest of the whales. Yet, owing to the long priority of his claims, and the profound ignorance which, till some seventy years back, invested the then fabulous or utterly unknown sperm-whale, and which ignorance to this present day still reigns in all but some few scientific retreats and whale-ports; this usurpation has been every way complete. Reference to nearly all the leviathanic allusions in the great poets of past days, will satisfy you that the Greenland whale, without one rival, was to them the monarch of the seas. But the time has at last come for a new proclamation. This is Charing Cross; hear ye! good people all,—the Greenland whale is deposed,—the great sperm whale now reigneth!';
   $sample .= ' This whale, among the English of old vaguely known as the Trumpa whale, and the Physeter whale, and the Anvil Headed whale, is the present Cachalot of the French, and the Pottsfich of the Germans, and the Macrocephalus of the Long Words. He is, without doubt, the largest inhabitant of the globe; the most formidable of all whales to encounter; the most majestic in aspect; and lastly, by far the most valuable in commerce; he being the only creature from which that valuable substance, spermaceti, is obtained. All his peculiarities will, in many other places, be enlarged upon. It is chiefly with his name that I now have to do. Philologically considered, it is absurd. Some centuries ago, when the Sperm whale was almost wholly unknown in his own proper individuality, and when his oil was only accidentally obtained from the stranded fish; in those days spermaceti, it would seem, was popularly supposed to be derived from a creature identical with the one then known in England as the Greenland or Right Whale. It was the idea also, that this same spermaceti was that quickening humor of the Greenland Whale which the first syllable of the word literally expresses. In those times, also, spermaceti was exceedingly scarce, not being used for light, but only as an ointment and medicament. It was only to be had from the druggists as you nowadays buy an ounce of rhubarb. When, as I opine, in the course of time, the true nature of spermaceti became known, its original name was still retained by the dealers; no doubt to enhance its value by a notion so strangely significant of its scarcity. And so the appellation must at last have come to be bestowed upon the whale from which this spermaceti was really derived.';
-  $start = rand(0, strlen($sample));
+
+  $sample_length = strlen($sample);
+  $start = rand(0, $sample_length);
+  do
+  {
+    if ($start === 0 || ($start > 2 && $sample[$start - 1] === ' ' && $sample[$start - 2] === '.'))
+    {
+      break;
+    }
+    $start++;
+    if ($start > $sample_length)
+    {
+      $start = 0;
+      break;
+    }
+  } while(TRUE);
+
   $string = substr($sample, $start, $length);
   if (strlen($string) < $length)
   {

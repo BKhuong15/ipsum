@@ -447,6 +447,10 @@ class SQLite extends Database
     {
       $sql .= 'DESC';
     }
+    elseif ($order->getDirection() == QueryOrder::DIRECTION_RAND)
+    {
+      $sql = ' RANDOM()';
+    }
     else
     {
       assert(FALSE, 'Unhandled order option.');

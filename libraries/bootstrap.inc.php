@@ -60,8 +60,12 @@ include ROOT_PATH . '/modules/name/name.pg.php';
 include ROOT_PATH . '/modules/name/name.lib.php';
 
 include ROOT_PATH . '/modules/date/date.lib.php';
+
+include ROOT_PATH . '/modules/address/address.db.php';
 include ROOT_PATH . '/modules/address/address.lib.php';
+
 include ROOT_PATH . '/modules/number/number.inc.php';
+
 include ROOT_PATH . '/modules/diagnosis/diagnosis.inc.php';
 
 //include ROOT_PATH . '/modules/type/type.pg.php';

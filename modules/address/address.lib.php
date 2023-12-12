@@ -2,8 +2,8 @@
 function buildAddress()
 {
   $output = buildStreetName() . htmlSolo('br');
-  $zip = getZip();
-  $output .= $zip['city'] . ', ' . $zip['state_id'] . ' ' . $zip['zip'];
+  $address = getRandomAddress();
+  $output .= $address['city'] . ', ' . $address['state_code'] . ' ' . $address['zip'];
   return $output;
 }
 
@@ -289,4 +289,9 @@ function getZip()
     $current_offset++;
   }
   return $header;
+}
+
+function addressZipList()
+{
+  $list = array();
 }

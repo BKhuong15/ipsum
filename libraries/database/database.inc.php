@@ -659,6 +659,7 @@ Class QueryOrder
 {
   const DIRECTION_ASC = 1;
   const DIRECTION_DESC = 2;
+  const DIRECTION_RAND = 3;
 
   protected $field;
   protected $table;
