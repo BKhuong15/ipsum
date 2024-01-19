@@ -71,6 +71,7 @@ function getRegistry($path = FALSE)
     'name-categories' => 'nameCategoryListPage', /** @uses nameCategoryListPage() */
     'phrases' => 'phrasesPage', /** @uses phrasesPage() */
     'phrase-category' => 'phraseUpsertForm', /** @uses phraseUpsertForm() */
+    'customize-phrase' => 'customizePhrase', /** @uses customizePhrase() */
   );
 
   if ($path)
@@ -108,6 +109,7 @@ function menu()
   $output .= a('Text', '/phrases');
   $submenu = new ListTemplate('ul');
   $submenu->addListItem(a('Phrases', '/phrases'));
+  $submenu->addListItem(a('Customize Phrases', '/customize-phrase'));
   $output .= $submenu;
 
   // Users.

@@ -69,7 +69,9 @@ function namePatientPage()
   $group .= lineItem('Work Phone', phoneFormat(buildFakePhone()));
   $output .= htmlWrap('div', $group, array('class' => array('line-item-group')));
 
-  // Case.
+  /********
+  *Case
+   *******/
   $group = htmlWrap('h3', 'Case');
   $providers = getNamesStarTrek();
   $group .= lineItem('Assigned Provider', $providers[rand(0, count($providers) - 1)]);
@@ -132,17 +134,72 @@ function namePatientPage()
   }
   $output .= htmlWrap('div', $group, array('class' => array('line-item-group')));
 
-  // Note.
-  $group = htmlWrap('h3', 'Note');
-  $procedures_eval = getProcedurePTEvalList();
-  $procedures_visit = getProcedurePTVisitList();
-  $group .= lineItem('Eval', getRandomEntryWithKey($procedures_eval));
-  $group .= lineItem('Visit', getRandomEntryWithKey($procedures_visit));
-  $group .= lineItem('Visit', getRandomEntryWithKey($procedures_visit));
-  $group .= lineItem('Visit', getRandomEntryWithKey($procedures_visit));
+  /********
+    *Note
+   *******/
+  //Note Goals
+  $group = htmlWrap('h3', 'Note Goals');
+  $problems = getProblems();
+  $group .= lineItem('Problems', getRandomEntry($problems));
+  $group .= lineItem('Problems', getRandomEntry($problems));
+  $group .= lineItem('Problems', getRandomEntry($problems));
+  $group .= htmlSolo('br');
+
+  $stg = getShortTerm();
+  $group .= lineItem('Short Term Goal', getRandomEntry($stg));
+  $group .= lineItem('Short Term Goal', getRandomEntry($stg));
+  $group .= lineItem('Short Term Goal', getRandomEntry($stg));
+  $group .= htmlSolo('br');
+
+  $ltg = getLongTerm();
+  $group .= lineItem('Long Term Goal', getRandomEntry($ltg));
+  $group .= lineItem('Long Term Goal', getRandomEntry($ltg));
+  $group .= lineItem('Long Term Goal', getRandomEntry($ltg));
 
   $output .= htmlWrap('div', $group, array('class' => array('line-item-group')));
+  $group = htmlWrap('h3', 'Note Charges');
+  $procedures_eval = getProcedurePTEvalList();
+  $procedures_visit = getProcedurePTVisitList();
+  $charge_time = getProcedureChargeTime();
 
+  $table = new TableTemplate();
+  $table->setAttr('class', array('charge-list'));
+  $table->setHeader(array('Type','CPT Code', 'Time/Units'));
+
+
+  // row with eval code and charge time
+  $evalEntry = getRandomEntryWithKey($procedures_eval);
+  $evalTime = getRandomEntry($charge_time);
+  $table->addRow(array('Eval', $evalEntry, $evalTime));
+
+  // row with visit code and charge time
+  $visitEntry = getRandomEntryWithKey($procedures_visit);
+  $visitTime = getRandomEntry($charge_time);
+  $table->addRow(array('Visit',$visitEntry, $visitTime));
+
+  // row with visit code and charge time
+  $visitEntry = getRandomEntryWithKey($procedures_visit);
+  $visitTime = getRandomEntry($charge_time);
+  $table->addRow(array('Visit',$visitEntry, $visitTime));
+
+  // row with visit code and charge time
+  $visitEntry = getRandomEntryWithKey($procedures_visit);
+  $visitTime = getRandomEntry($charge_time);
+  $table->addRow(array('Visit',$visitEntry, $visitTime));
+
+  // Convert table object to string (rendering)
+  $group .= $table->__toString();
+  $group .= htmlSolo('br');
+
+  //Treatment Exercise
+  $exercise = getTreatmentExercises();
+  $group .= lineItem('Exercise', getRandomEntry($exercise));
+  $group .= lineItem('Exercise', getRandomEntry($exercise));
+  $group .= lineItem('Exercise', getRandomEntry($exercise));
+  $group .= lineItem('Exercise', getRandomEntry($exercise));
+  $group .= htmlSolo('br');
+
+  $output .= htmlWrap('div', $group, array('class' => array('line-item-group')));
 
   $page->setBody($output);
   return $page;
