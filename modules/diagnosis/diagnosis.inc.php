@@ -146,10 +146,34 @@ function getProcedureChargeTime()
   {
     $unit = getUnit($minute);
 
-      // Combine minute and unit in a way that can be split later
-      $chargeUnit[] = $minute . ' minutes ' . $unit . ' units';
+    // Combine minute and unit in a way that can be split later
+    $chargeUnit[] = $minute . ' minutes ' . $unit . ' units';
   }
   return $chargeUnit;
+}
+
+function splitTimeAndUnit($timeUnitString)
+{
+// Separate the values
+  $split = explode(' minutes ', $timeUnitString, 2);
+
+// Split units and minutes
+  $minutes = $split[0];
+  $units = str_replace('units', '', $split[1]); // Remove 'units' from the second part
+
+  return array($minutes, $units);
+}
+
+function splitCodeAndDescription($entry)
+{
+  // Separate the values
+  $split = explode(' ', $entry, 2);
+
+  // Split code and description
+  $code = $split[0];
+  $description = $split[1];
+
+  return array($code, $description);
 }
 
 ?>
