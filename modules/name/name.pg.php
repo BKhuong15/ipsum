@@ -18,7 +18,7 @@ function namePatientPage()
   {
     $name = getName($name_id);
   }
-  elseif($name_category_id)
+  elseif ($name_category_id)
   {
     $name = getNameRandom($name_category_id);
   }
@@ -32,7 +32,7 @@ function namePatientPage()
   $group .= lineItem('Name', formatName($name));
   $group .= htmlSolo('br');
 
-  $group .= lineItem('Username (email)', 'daniel+' . toMachine($name['first_name']). rand(1, 100) . '@danielphenry.net');
+  $group .= lineItem('Username (email)', 'daniel+' . toMachine($name['first_name']) . rand(1, 100) . '@danielphenry.net');
   $group .= lineItem('Username (plaintext)', 'dp' . toMachine($name['first_name']) . rand(1, 100));
   $group .= lineItem('Password', generateRandomCode(10)) . htmlSolo('br');;
 
@@ -64,13 +64,13 @@ function namePatientPage()
   }
   if ($reminder_calls)
   {
-    $group .= lineItem('Home Phone', phoneFormat(getNotifyPhoneList(rand(0,3))));
+    $group .= lineItem('Home Phone', phoneFormat(getNotifyPhoneList(rand(0, 3))));
   }
   $group .= lineItem('Work Phone', phoneFormat(buildFakePhone()));
   $output .= htmlWrap('div', $group, array('class' => array('line-item-group')));
 
   /********
-  *Case
+   *Case
    *******/
   $group = htmlWrap('h3', 'Case');
   $providers = getNamesStarTrek();
@@ -97,7 +97,7 @@ function namePatientPage()
   $date_jan_1 = new DateTime('Jan 1');
   $group .= lineItem('Start Date', $date_jan_1->format('m/d/Y'));
 
-  $policy_holder = rand(1,15);
+  $policy_holder = rand(1, 15);
   if ($policy_holder === 15) // 6%
   {
     $policy_holder_label = 'Other';
@@ -135,7 +135,7 @@ function namePatientPage()
   $output .= htmlWrap('div', $group, array('class' => array('line-item-group')));
 
   /********
-    *Note
+   *Note
    *******/
   //Note Goals
   $group = htmlWrap('h3', 'Note Goals');
@@ -164,28 +164,36 @@ function namePatientPage()
 
   $table = new TableTemplate();
   $table->setAttr('class', array('charge-list'));
-  $table->setHeader(array('Type','CPT Code', 'Time/Units'));
+  $table->setHeader(array('Type', 'CPT Code', 'Description', 'Time', 'Units'));
 
 
   // row with eval code and charge time
   $evalEntry = getRandomEntryWithKey($procedures_eval);
   $evalTime = getRandomEntry($charge_time);
-  $table->addRow(array('Eval', $evalEntry, $evalTime));
+  list($evalMinutes, $evalUnits) = splitTimeAndUnit($evalTime);
+  list($evalCode, $evalDescription) = splitCodeAndDescription($evalEntry);
+  $table->addRow(array('Eval', $evalCode, $evalDescription, $evalMinutes, $evalUnits));
 
   // row with visit code and charge time
   $visitEntry = getRandomEntryWithKey($procedures_visit);
   $visitTime = getRandomEntry($charge_time);
-  $table->addRow(array('Visit',$visitEntry, $visitTime));
+  list($visitMinutes, $visitUnits) = splitTimeAndUnit($visitTime);
+  list($visitCode, $visitDescription) = splitCodeAndDescription($visitEntry);
+  $table->addRow(array('Visit', $visitCode, $visitDescription, $visitMinutes, $visitUnits));
 
   // row with visit code and charge time
   $visitEntry = getRandomEntryWithKey($procedures_visit);
   $visitTime = getRandomEntry($charge_time);
-  $table->addRow(array('Visit',$visitEntry, $visitTime));
+  list($visitMinutes, $visitUnits) = splitTimeAndUnit($visitTime);
+  list($visitCode, $visitDescription) = splitCodeAndDescription($visitEntry);
+  $table->addRow(array('Visit', $visitCode, $visitDescription, $visitMinutes, $visitUnits));
 
   // row with visit code and charge time
   $visitEntry = getRandomEntryWithKey($procedures_visit);
   $visitTime = getRandomEntry($charge_time);
-  $table->addRow(array('Visit',$visitEntry, $visitTime));
+  list($visitMinutes, $visitUnits) = splitTimeAndUnit($visitTime);
+  list($visitCode, $visitDescription) = splitCodeAndDescription($visitEntry);
+  $table->addRow(array('Visit', $visitCode, $visitDescription, $visitMinutes, $visitUnits));
 
   // Convert table object to string (rendering)
   $group .= $table->__toString();
@@ -450,3 +458,4 @@ function nameSubmit()
     return htmlWrap('h3', 'Name ' . htmlWrap('em', formatName($name)) . ' (' . $name['id'] . ') created.');
   }
 }
+

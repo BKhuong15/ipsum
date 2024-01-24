@@ -13,8 +13,21 @@ function installPhrase()
   $query->addField('text', CreateQuery::TYPE_STRING, 32, array('N'));
   $query->addField('type_id', CreateQuery::TYPE_STRING, 32, array('N'));
   $db->create($query);
+  storeDefaultPhrases();
 }
+function storeDefaultPhrases() {
+  GLOBAL $db;
 
+  $phrases = getPhrases();
+
+
+  foreach ($phrases as $text) {
+    $query = new InsertQuery('phrases');
+    $query->addField('text', $text);
+    $query->addField('type_id', PHRASE_TYPE_SENTANCE); // Default type_id
+    $db->insert($query);
+  }
+}
 function updatePhrase($name)
 {
   GLOBAL $db;
@@ -47,4 +60,19 @@ function deletePhrase($id)
   $query->addConditionSimple('id', $id);
 
   $db->delete($query);
+}
+function getAllPhrases() {
+  GLOBAL $db;
+
+  $query = new SelectQuery('phrases');
+  $query->addField('text');
+
+  $result = $db->select($query);
+  $phrases = array();
+
+  foreach ($result as $row) {
+    $phrases[] = $row['text'];
+  }
+
+  return $phrases;
 }
