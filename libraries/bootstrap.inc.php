@@ -77,5 +77,5 @@ include ROOT_PATH . '/modules/goals/goals.inc.php';
 
 include ROOT_PATH . '/modules/phrase/phrase.pg.php';
 include ROOT_PATH . '/modules/phrase/phrase.db.php';
-include ROOT_PATH . '/modules/phrase/phrase.inc.php';
-include ROOT_PATH . '/modules/phrase/customize_phrase.pg.php';
+include ROOT_PATH . '/modules/phrase/phrase.lib.php';
+

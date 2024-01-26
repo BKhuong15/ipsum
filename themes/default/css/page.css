@@ -1,113 +1,145 @@
 /* line 3, ../scss/page.scss */
-* {
+*
+{
   font-family: arial, helvetica, sans-serif;
 }
 
 /* line 8, ../scss/page.scss */
-body {
+body
+{
   font-size: 14px;
   margin: 0;
 }
 
 /* line 14, ../scss/page.scss */
-h1 {
+h1
+{
   font-size: 36px;
   margin-left: 20px;
 }
+
 /* line 19, ../scss/page.scss */
-h1.debug {
+h1.debug
+{
   color: rosybrown;
 }
 
 /* line 24, ../scss/page.scss */
-.line-item-group {
+.line-item-group
+{
   margin-left: 10px;
   float: left;
   width: 300px;
 }
 
 /* line 31, ../scss/page.scss */
-a {
+a
+{
   text-decoration: none;
   color: blue;
 }
 
 /* line 37, ../scss/page.scss */
-table {
+table
+{
   font-size: 14px;
   border-collapse: collapse;
 }
+
 /* line 42, ../scss/page.scss */
-body > table {
+body > table
+{
   margin-left: 20px;
 }
+
 /* line 47, ../scss/page.scss */
-table th, table td {
+table th, table td
+{
   border: 1px solid black;
   padding: 2px 3px;
 }
 
 /* line 54, ../scss/page.scss */
-#menu {
+#menu
+{
   width: 100%;
   background-color: #FFE3AA;
   font-size: 18px;
 }
+
 /* line 61, ../scss/page.scss */
-#menu a {
+#menu a
+{
   display: inline-block;
   margin: 5px;
 }
+
 /* line 67, ../scss/page.scss */
-#menu ul {
+#menu ul
+{
   display: none;
   position: absolute;
   background-color: #FFE3AA;
   margin: 0;
   padding: 5px;
 }
+
 /* line 76, ../scss/page.scss */
-#menu ul li {
+#menu ul li
+{
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
 /* line 87, ../scss/page.scss */
-body > .operations {
+body > .operations
+{
   margin-left: 20px;
   margin-bottom: 5px;
 }
+
 /* line 92, ../scss/page.scss */
-.operations a {
+.operations a
+{
   margin-left: 10px;
 }
+
 /* line 96, ../scss/page.scss */
-.operations a:first-of-type {
+.operations a:first-of-type
+{
   margin: auto;
 }
 
 /* line 105, ../scss/page.scss */
-table.print-list .column-1 {
+table.print-list .column-1
+{
   width: 100px;
 }
+
 /* line 109, ../scss/page.scss */
-table.print-list .column-1 input.button {
+table.print-list .column-1 input.button
+{
   width: 30px;
 }
+
 /* line 114, ../scss/page.scss */
 table.print-list .column-1 input.plus,
-table.print-list .column-1 input.minus {
+table.print-list .column-1 input.minus
+{
   width: 22px;
   margin-left: 2px;
 }
+
 /* line 121, ../scss/page.scss */
-table.print-list .column-2 {
+table.print-list .column-2
+{
   width: 200px;
 }
 
 /* line 127, ../scss/page.scss */
-.print-card {
+.print-card
+{
   width: 212px;
   height: 300px;
   float: left;
@@ -119,7 +151,8 @@ table.print-list .column-2 {
 }
 
 /* line 143, ../scss/page.scss */
-#cover {
+#cover
+{
   position: fixed;
   top: 0;
   left: 0;
@@ -131,7 +164,8 @@ table.print-list .column-2 {
 }
 
 /* line 156, ../scss/page.scss */
-#modal {
+#modal
+{
   position: fixed;
   top: 100px;
   left: 100px;
@@ -144,26 +178,52 @@ table.print-list .column-2 {
   border-radius: 5px;
   box-shadow: 0 5px 5px 1px #838383;
 }
+
 /* line 172, ../scss/page.scss */
-#modal #close-modal {
+#modal #close-modal
+{
   position: absolute;
   right: 20px;
   top: 10px;
   cursor: pointer;
 }
+
 /* line 180, ../scss/page.scss */
-#modal h1 {
+#modal h1
+{
   font-size: 16px;
   margin: 0;
 }
+
 /* line 185, ../scss/page.scss */
-#modal .field.submit {
+#modal .field.submit
+{
   float: right;
 }
 
 /* line 191, ../scss/page.scss */
-input[name="submit"] {
+input[name="submit"]
+{
   background-color: #5C9632;
   padding: 5px;
   min-width: 100px;
 }
+
+.group-phrases
+{
+  margin: 25px 25px 25px 25px
+}
+
+table.phrase-list
+{
+  margin-left:20px;
+  margin-right:100px;
+}
+
+input[name="text"]
+{
+  min-width: 300px;
+}
+
+
+
