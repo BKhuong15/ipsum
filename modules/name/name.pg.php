@@ -143,6 +143,13 @@ function namePatientPage()
 
   $output .= htmlWrap('div', $group, array('class' => array('line-item-group')));
 
+  // Note.
+  $group = htmlWrap('h3', 'Misc');
+  $group .= lineItem('Hash 32', generateRandomString());
+  $group .= lineItem('URL Safe 32', randomCode(32));
+
+  $output .= htmlWrap('div', $group, array('class' => array('line-item-group')));
+
 
   $page->setBody($output);
   return $page;
