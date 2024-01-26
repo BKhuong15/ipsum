@@ -68,8 +68,14 @@ include ROOT_PATH . '/modules/number/number.inc.php';
 
 include ROOT_PATH . '/modules/diagnosis/diagnosis.inc.php';
 
+include ROOT_PATH . '/modules/exercise/exercise.inc.php';
+
+include ROOT_PATH . '/modules/goals/goals.inc.php';
+
 //include ROOT_PATH . '/modules/type/type.pg.php';
 //include ROOT_PATH . '/modules/type/type.lib.php';
 
 include ROOT_PATH . '/modules/phrase/phrase.pg.php';
 include ROOT_PATH . '/modules/phrase/phrase.db.php';
+include ROOT_PATH . '/modules/phrase/phrase.lib.php';
+

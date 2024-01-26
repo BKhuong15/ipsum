@@ -66,8 +66,8 @@ function getDiagnosisList()
     'M25.612' => 'Stiffness of left shoulder, not elsewhere classified.',
 
     // Upper Arm.
-    'M79.621'	=> 'Pain in right upper arm.',
-    'M79.622'	=> 'Pain in left upper arm.',
+    'M79.621' => 'Pain in right upper arm.',
+    'M79.622' => 'Pain in left upper arm.',
 //      'M79.601' => ' Pain in right arm.',
 //      'M79.602' => ' Pain in left arm.',
 
@@ -112,6 +112,68 @@ function getProcedurePTVisitList()
     '97116' => 'Gait Training',
   );
   return $list;
+}
+
+function getProcedureChargeTime()
+{
+  // determine the unit based on the minute value
+  function getUnit($minute)
+  {
+    if ($minute >= 1 && $minute <= 7)
+    {
+      return 0;
+    }
+    if ($minute >= 8 && $minute <= 22)
+    {
+      return 1;
+    }
+    if ($minute >= 23 && $minute <= 37)
+    {
+      return 2;
+    }
+    if ($minute >= 38 && $minute <= 52)
+    {
+      return 3;
+    }
+    else
+    {
+      return '0';
+    }
+  }
+
+  // Create a list of times and then get the unit
+  for ($minute = 1; $minute <= 52; $minute++)
+  {
+    $unit = getUnit($minute);
+
+    // Combine minute and unit in a way that can be split later
+    $chargeUnit[] = $minute . ' minutes ' . $unit . ' units';
+  }
+  return $chargeUnit;
+}
+
+function splitTimeAndUnit($timeUnitString)
+{
+// Separate the values
+  $split = explode(' minutes ', $timeUnitString, 2);
+
+// Split units and minutes
+  $minutes = $split[0];
+  $units = str_replace('units', '', $split[1]); // Remove 'units' from the second part
+
+  return array($minutes, $units);
+}
+
+function splitCodeAndDescription($entry)
+{
+  // Separate the values
+  $split = explode(' ', $entry, 2);
+
+  // Split code and description
+  $code = $split[0];
+  $description = $split[1];
+
+  return array($code, $description);
 }
 
 ?>
