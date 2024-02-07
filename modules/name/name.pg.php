@@ -158,42 +158,24 @@ function namePatientPage()
 
   $output .= htmlWrap('div', $group, array('class' => array('line-item-group')));
   $group = htmlWrap('h3', 'Note Charges');
+
+
   $procedures_eval = getProcedurePTEvalList();
   $procedures_visit = getProcedurePTVisitList();
-  $charge_time = getProcedureChargeTime();
 
   $table = new TableTemplate();
   $table->setAttr('class', array('charge-list'));
   $table->setHeader(array('Type', 'CPT Code', 'Description', 'Time', 'Units'));
 
+  //output eval row
+  addChargeTable($table, $procedures_eval, $procedures_visit, 'Eval');
 
-  // row with eval code and charge time
-  $evalEntry = getRandomEntryWithKey($procedures_eval);
-  $evalTime = getRandomEntry($charge_time);
-  list($evalMinutes, $evalUnits) = splitTimeAndUnit($evalTime);
-  list($evalCode, $evalDescription) = splitCodeAndDescription($evalEntry);
-  $table->addRow(array('Eval', $evalCode, $evalDescription, $evalMinutes, $evalUnits));
+// output visit rows
+  for ($i = 0; $i < 3; $i++)
+  {
+    addChargeTable($table, $procedures_eval, $procedures_visit, 'Visit');
+  }
 
-  // row with visit code and charge time
-  $visitEntry = getRandomEntryWithKey($procedures_visit);
-  $visitTime = getRandomEntry($charge_time);
-  list($visitMinutes, $visitUnits) = splitTimeAndUnit($visitTime);
-  list($visitCode, $visitDescription) = splitCodeAndDescription($visitEntry);
-  $table->addRow(array('Visit', $visitCode, $visitDescription, $visitMinutes, $visitUnits));
-
-  // row with visit code and charge time
-  $visitEntry = getRandomEntryWithKey($procedures_visit);
-  $visitTime = getRandomEntry($charge_time);
-  list($visitMinutes, $visitUnits) = splitTimeAndUnit($visitTime);
-  list($visitCode, $visitDescription) = splitCodeAndDescription($visitEntry);
-  $table->addRow(array('Visit', $visitCode, $visitDescription, $visitMinutes, $visitUnits));
-
-  // row with visit code and charge time
-  $visitEntry = getRandomEntryWithKey($procedures_visit);
-  $visitTime = getRandomEntry($charge_time);
-  list($visitMinutes, $visitUnits) = splitTimeAndUnit($visitTime);
-  list($visitCode, $visitDescription) = splitCodeAndDescription($visitEntry);
-  $table->addRow(array('Visit', $visitCode, $visitDescription, $visitMinutes, $visitUnits));
 
   // Convert table object to string (rendering)
   $group .= $table->__toString();
@@ -206,6 +188,13 @@ function namePatientPage()
   $group .= lineItem('Exercise', getRandomEntry($exercise));
   $group .= lineItem('Exercise', getRandomEntry($exercise));
   $group .= htmlSolo('br');
+
+  $output .= htmlWrap('div', $group, array('class' => array('line-item-group')));
+
+  // Misc.
+  $group = htmlWrap('h3', 'Misc');
+  $group .= lineItem('Hash 32', generateRandomString());
+  $group .= lineItem('URL Safe 32', randomCode(32));
 
   $output .= htmlWrap('div', $group, array('class' => array('line-item-group')));
 

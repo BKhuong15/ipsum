@@ -13,30 +13,33 @@ function installPhrase()
   $query->addField('text', CreateQuery::TYPE_STRING, 32, array('N'));
   $query->addField('type_id', CreateQuery::TYPE_STRING, 32, array('N'));
   $db->create($query);
-  storeDefaultPhrases();
+  installDefaultPhrases();
 }
-function storeDefaultPhrases() {
+
+function installDefaultPhrases()
+{
   GLOBAL $db;
 
   $phrases = getPhrases();
 
-
-  foreach ($phrases as $text) {
+  foreach ($phrases as $text)
+  {
     $query = new InsertQuery('phrases');
     $query->addField('text', $text);
-    $query->addField('type_id', PHRASE_TYPE_SENTANCE); // Default type_id
+    $query->addField('type_id', PHRASE_TYPE_SENTANCE);
     $db->insert($query);
   }
 }
-function updatePhrase($name)
+
+function updatePhrase($phrase)
 {
   GLOBAL $db;
 
   $query = new UpdateQuery('phrases');
-  $query->addField('text', $name['text']);
-  $query->addField('type_id', $name['type_id']);
+  $query->addField('text', $phrase['text']);
+  $query->addField('type_id', $phrase['type_id']);
 
-  $query->addConditionSimple('id', $name['id']);
+  $query->addConditionSimple('id', $phrase['id']);
 
   $db->update($query);
 }
@@ -61,7 +64,9 @@ function deletePhrase($id)
 
   $db->delete($query);
 }
-function getAllPhrases() {
+
+function getPhraseText()
+{
   GLOBAL $db;
 
   $query = new SelectQuery('phrases');
@@ -70,9 +75,23 @@ function getAllPhrases() {
   $result = $db->select($query);
   $phrases = array();
 
-  foreach ($result as $row) {
+  foreach ($result as $row)
+  {
     $phrases[] = $row['text'];
   }
 
   return $phrases;
+}
+
+function getPhrase($id)
+{
+  GLOBAL $db;
+
+  $query = new SelectQuery('phrases');
+  $query->addField('id');
+  $query->addField('text');
+  $query->addField('type_id');
+  $query->addConditionSimple('id', $id);
+
+  return $db->selectObject($query);
 }

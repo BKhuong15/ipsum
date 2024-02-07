@@ -65,7 +65,7 @@ class Form
 
   function addField(Field $field)
   {
-    if (array_key_exists($field->getId(), $this->values))
+    if (is_array($this->values) && array_key_exists($field->getId(), $this->values))
     {
       $field->setValue($this->values[$field->getId()]);
     }
@@ -507,7 +507,7 @@ class FieldSubmit extends Field
   {
     // Input.
     $attr = $this->attr;
-//    $attr['id'] = $this->id;
+//   $attr['id'] = $this->id;
     $attr['name'] = $this->id;
     $attr['type'] = 'submit';
     if ($this->value)

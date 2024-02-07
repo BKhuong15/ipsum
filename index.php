@@ -69,9 +69,9 @@ function getRegistry($path = FALSE)
     'names' => 'nameListPage', /** @uses nameListPage() */
     'name-category' => 'nameCategoryUpsertForm', /** @uses nameCategoryUpsertForm() */
     'name-categories' => 'nameCategoryListPage', /** @uses nameCategoryListPage() */
-    'phrases' => 'phraseGenerator', /** @uses phraseGenerator() */
-    'phrase-category' => 'phraseUpsertForm', /** @uses phraseUpsertForm() */
-    'customize-phrase' => 'customizePhrase', /** @uses customizePhrase() */
+    'phrases' => 'phrases', /** @uses phrases() */
+    'phrase' => 'phraseUpsertForm', /** @uses phraseUpsertForm() */
+    'phrase/list' => 'phraseList', /** @uses phraseList() */
   );
 
   if ($path)
@@ -108,8 +108,8 @@ function menu()
   // Text.
   $output .= a('Text', '/phrases');
   $submenu = new ListTemplate('ul');
-  $submenu->addListItem(a('Phrase Generator', '/phrases'));
-  $submenu->addListItem(a('Customize Phrases', '/customize-phrase'));
+  $submenu->addListItem(a('Phrases', '/phrases'));
+  $submenu->addListItem(a('Phrase List', '/phrase/list'));
   $output .= $submenu;
 
   // Users.
