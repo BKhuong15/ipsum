@@ -119,7 +119,7 @@ function addChargeTable($table, &$procedures_eval, &$procedures_visit, $type)
   //variables for 8 minute rule
   $minutes = rand(5, 45);
   $units = round($minutes / 15);
-
+git 
   // get eval code
   if ($type == 'Eval')
   {
