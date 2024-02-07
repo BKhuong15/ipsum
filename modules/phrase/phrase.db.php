@@ -6,7 +6,7 @@
  ****************************************************************************/
 function installPhrase()
 {
-  global $db;
+  GLOBAL $db;
 
   $query = new CreateQuery('phrases');
   $query->addField('id', CreateQuery::TYPE_INTEGER, 0, array('P', 'A'));
@@ -18,7 +18,7 @@ function installPhrase()
 
 function installDefaultPhrases()
 {
-  global $db;
+  GLOBAL $db;
 
   $phrases = getPhrases();
 
@@ -33,7 +33,7 @@ function installDefaultPhrases()
 
 function updatePhrase($phrase)
 {
-  global $db;
+  GLOBAL $db;
 
   $query = new UpdateQuery('phrases');
   $query->addField('text', $phrase['text']);
@@ -46,7 +46,7 @@ function updatePhrase($phrase)
 
 function createPhrase($name)
 {
-  global $db;
+  GLOBAL $db;
 
   $query = new InsertQuery('phrases');
   $query->addField('text', $name['text']);
@@ -57,7 +57,7 @@ function createPhrase($name)
 
 function deletePhrase($id)
 {
-  global $db;
+  GLOBAL $db;
 
   $query = new DeleteQuery('phrases');
   $query->addConditionSimple('id', $id);
@@ -67,7 +67,7 @@ function deletePhrase($id)
 
 function getPhraseText()
 {
-  global $db;
+  GLOBAL $db;
 
   $query = new SelectQuery('phrases');
   $query->addField('text');
@@ -85,7 +85,7 @@ function getPhraseText()
 
 function getPhrase($id)
 {
-  global $db;
+  GLOBAL $db;
 
   $query = new SelectQuery('phrases');
   $query->addField('id');

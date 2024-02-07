@@ -378,6 +378,13 @@ function generateRandomCode($length = 8, $upper = TRUE, $lower = TRUE, $number =
   return $code;
 }
 
+function getRandomKey($list)
+{
+  $selection = array_rand($list);
+  return $selection;
+}
+
+
 function getRandomEntry($list)
 {
   $selection = rand(0, count($list) - 1);

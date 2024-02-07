@@ -114,67 +114,27 @@ function getProcedurePTVisitList()
   return $list;
 }
 
-function getProcedureChargeTime()
+function addChargeTable($table, &$procedures_eval, &$procedures_visit, $type)
 {
-  // determine the unit based on the minute value
-  function getUnit($minute)
+  //variables for 8 minute rule
+  $minutes = rand(5, 45);
+  $units = round($minutes / 15);
+
+  // get eval code
+  if ($type == 'Eval')
   {
-    if ($minute >= 1 && $minute <= 7)
-    {
-      return 0;
-    }
-    if ($minute >= 8 && $minute <= 22)
-    {
-      return 1;
-    }
-    if ($minute >= 23 && $minute <= 37)
-    {
-      return 2;
-    }
-    if ($minute >= 38 && $minute <= 52)
-    {
-      return 3;
-    }
-    else
-    {
-      return '0';
-    }
+    $procedure_code = getRandomKey($procedures_eval);
+    $description = $procedures_eval[$procedure_code];
+
+  }
+  //get visit code
+  else
+  {
+    $procedure_code = getRandomKey($procedures_visit);
+    $description = $procedures_visit[$procedure_code];
   }
 
-  // Create a list of times and then get the unit
-  for ($minute = 1; $minute <= 52; $minute++)
-  {
-    $unit = getUnit($minute);
-
-    // Combine minute and unit in a way that can be split later
-    $chargeUnit[] = $minute . ' minutes ' . $unit . ' units';
-  }
-  return $chargeUnit;
+  // build the table
+  $table->addRow(array($type, $procedure_code, $description, $minutes, $units));
 }
 
-function splitTimeAndUnit($timeUnitString)
-{
-// Separate the values
-  $split = explode(' minutes ', $timeUnitString, 2);
-
-// Split units and minutes
-  $minutes = $split[0];
-  $units = str_replace('units', '', $split[1]); // Remove 'units' from the second part
-
-  return array($minutes, $units);
-}
-
-function splitCodeAndDescription($entry)
-{
-  // Separate the values
-  $split = explode(' ', $entry, 2);
-
-  // Split code and description
-  $code = $split[0];
-  $description = $split[1];
-
-  return array($code, $description);
-}
-
-?>
-</body>

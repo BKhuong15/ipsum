@@ -1,30 +1,31 @@
 $(document).ready(function ()
 {
+  let $phrases = $('#copy-phrase-generator');
   // Handle event for the copy-word button
-  $('input[name="copy-word"]').click(function ()
+  $phrases.find('input[name="copy-word"]').click(function ()
   {
-    let word = $(this).closest('.group-phrases').find('#word').text();
+    let word = $(this).closest('.group-phrases').find('#copy-phrase-word').text();
     copyToClipboard(word);
   });
 
   // Handle event for copy-sentence button
-  $('input[name="copy-sentence"]').click(function ()
+  $phrases.find('input[name="copy-sentence"]').click(function ()
   {
-    let sentence = $(this).closest('.group-phrases').find('.sentence').text();
+    let sentence = $(this).closest('.group-phrases').find('#copy-phrase-sentence').text();
     copyToClipboard(sentence);
   });
 
   // Handle event for the copy-paragraph button
-  $('input[name="copy-paragraph"]').click(function ()
+  $phrases.find('input[name="copy-paragraph"]').click(function ()
   {
-    let paragraph = $(this).closest('.group-phrases').find('#paragraph').text();
+    let paragraph = $(this).closest('.group-phrases').find('#copy-phrase-paragraph').text();
     copyToClipboard(paragraph);
   });
 
   // Handle event for the copy-more-paragraph button
-  $('input[name="copy-more-paragraph"]').click(function ()
+  $phrases.find('input[name="copy-more-paragraph"]').click(function ()
   {
-    let moreParagraphs = $(this).closest('.group-phrases').find('#more-paragraphs').text();
+    let moreParagraphs = $(this).closest('.group-phrases').find('#copy-phrase-more-paragraphs').text();
     copyToClipboard(moreParagraphs);
   });
 });

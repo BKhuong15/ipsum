@@ -7,103 +7,108 @@ function phrases()
 
   $phrases = getPhraseText();
 
-  $phraseWord = phraseWord($phrases);
-  $phrasesSentence = phraseSentence($phrases);
-  $phrasesParagraph = phraseParagraph($phrases);
-  $phrasesMoreParagraph = phraseMoreParagraph($phrases);
+  $phrase_word = phraseWord($phrases);
+  $phrases_sentence = phraseSentence($phrases);
+  $phrases_paragraph = phraseParagraph($phrases);
+  $phrases_more_paragraph = phraseMoreParagraph($phrases);
 
-  $output = menu();
-  $output .= htmlWrap('h1', 'Phrases Generator');
+  $menu = menu();
+  $output = htmlWrap('h1', 'Phrases Generator');
 
   // Word Section
   $group = htmlWrap('h3', 'Word');
-  $group .= htmlWrap('p', $phraseWord, array('id' => array('word')));
+  $group .= htmlWrap('p', $phrase_word, array('id' => ('copy-phrase-word')));
   $group .= new FieldSubmit('copy-word', 'Copy📋');
   $group .= htmlSolo('br');
   $output .= htmlWrap('div', $group, array('class' => array('group-phrases')));
 
   // Sentence Section
   $group = htmlWrap('h3', 'Sentence');
-  $group .= htmlWrap('p', $phrasesSentence, array('class' => array('sentence')));
+  $group .= htmlWrap('p', $phrases_sentence, array('id' => 'copy-phrase-sentence'));
   $group .= new FieldSubmit('copy-sentence', 'Copy📋');
   $group .= htmlSolo('br');
   $output .= htmlWrap('div', $group, array('class' => array('group-phrases')));
 
 // Paragraph Section
   $group = htmlWrap('h3', 'Paragraph');
-  $group .= htmlWrap('p', $phrasesParagraph, array('id' => array('paragraph')));
+  $group .= htmlWrap('p', $phrases_paragraph, array('id' => 'copy-phrase-paragraph'));
   $group .= new FieldSubmit('copy-paragraph', 'Copy📋');
   $group .= htmlSolo('br');
   $output .= htmlWrap('div', $group, array('class' => array('group-phrases')));
 
 // More Paragraphs Section
   $group = htmlWrap('h3', 'Paragraphs'); // Reset $group here
-  $group .= htmlWrap('p', $phrasesMoreParagraph, array('id' => array('more-paragraphs')));
+  $group .= htmlWrap('p', $phrases_more_paragraph, array('id' => 'copy-phrase-more-paragraphs'));
   $group .= new FieldSubmit('copy-more-paragraph', 'Copy📋');
   $output .= htmlWrap('div', $group, array('class' => array('group-phrases')));
+  $output = htmlWrap('div', $output, array('id' =>'copy-phrase-generator'));
 
-  $page->setBody($output);
+  $page->setBody($menu . $output);
   return $page;
 }
 
 function phraseWord($phrases)
 {
   // Pick a random phrase
-  $randomPhraseKey = array_rand($phrases);
-  $randomPhrase = $phrases[$randomPhraseKey];
+  $random_phrase_key = array_rand($phrases);
+  $random_phrase = $phrases[$random_phrase_key];
 
   // Split the phrase into words
-  $words = explode(' ', $randomPhrase);
+  $words = explode(' ', $random_phrase);
 
   // Pick a random word from the phrase
-  $randomWordKey = array_rand($words);
-  return $words[$randomWordKey];
+  $random_word_key = array_rand($words);
+  return $words[$random_word_key];
 }
 
 function phraseSentence($phrases)
 {
   // Pick a random sentence (phrase) from the array
-  $randomSentenceKey = array_rand($phrases);
-  return $phrases[$randomSentenceKey];
+  $random_sentence_key = array_rand($phrases);
+  return $phrases[$random_sentence_key];
 }
 
 function phraseParagraph($phrases)
 {
-  // Get 4-5 random keys from phrases array
-  $randomKeys = array_rand($phrases, rand(4, 6));
+  // Get 4-6 random keys from phrases array
+  $random_paragraph_keys = array_rand($phrases, rand(4, 6));
 
-  // Concatenating each random phrase
-  $phrasesOutput = '';
-  foreach ($randomKeys as $key)
+  $phrases_output = '';
+  foreach ($random_paragraph_keys as $key)
   {
-    $phrasesOutput .= $phrases[$key] . ' '; // Adding a space between phrases
+    $phrases_output .= $phrases[$key] . ' '; // Adding a space between phrases
   }
 
   // Wrapping the combined phrases in a paragraph tag
-  return $phrasesOutput;
+  return $phrases_output;
 }
 
 function phraseMoreParagraph($phrases)
 {
-  // Get 3-5 random keys from phrases array
-  $randomKeys = array_rand($phrases, rand(10, 15));
+  // Get 10-15 random keys from phrases array
+  $random_more_paragraph_keys = array_rand($phrases, rand(15, 25));
 
-  // Concatenating each random phrase
-  $phrasesOutput = '';
-  foreach ($randomKeys as $key)
-  {
-    $phrasesOutput .= $phrases[$key] . ' '; // Adding a space between phrases
+  $phrases_output = '';
+  $sentence_count = 0;
+  foreach ($random_more_paragraph_keys as $key) {
+    $phrases_output .= $phrases[$key] . ' '; // Adding a space between phrases
+    $sentence_count++;
+
+    // If 5 sentences are reached, add a newline and reset the counter
+    if ($sentence_count == 5) {
+      $phrases_output .= "<br><br>";
+      $sentence_count = 0;
+    }
   }
 
-  // Wrapping the combined phrases in a paragraph tag
-  return $phrasesOutput;
+  return $phrases_output;
 }
 
 function phraseList()
 {
   $page = getUrlID('page', 1);
 
-  $template = new ListPageTemplate('Phrases', '/phrase', '/phrase');
+  $template = new ListPageTemplate('Phrases', '/phrase/list', '/phrase');
   $template->setCreate('New Phrase');
   $template->setPage($page);
 
@@ -115,7 +120,6 @@ function phraseList()
   $phrase_page = getPhrasePage($page);
   foreach ($phrase_page as $phrases)
   {
-    $row = array();
     $row = array();
     $attr = array(
       'query' => array('id' => $phrases['id']),
@@ -235,7 +239,7 @@ function phraseSubmit()
 function getPhrasePage($page = 1)
 {
   global $db;
-  $typeMapping = getPhraseTypeList();
+  $type_mapping = getPhraseTypeList();
 
   $query = new SelectQuery('phrases');
   $query->addField('id');
@@ -253,9 +257,9 @@ function getPhrasePage($page = 1)
   // Replace type_id with the type name
   foreach ($results as $key => $row)
   {
-    if (array_key_exists($row['type_id'], $typeMapping))
+    if (array_key_exists($row['type_id'], $type_mapping))
     {
-      $results[$key]['type_name'] = $typeMapping[$row['type_id']];
+      $results[$key]['type_name'] = $type_mapping[$row['type_id']];
     }
     else
     {
